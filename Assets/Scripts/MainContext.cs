@@ -7,6 +7,7 @@ using rot.main.logic;
 using rot.main.datamanager;
 using rot.utils;
 using rot.command;
+using nFury.Utils.Core;
 
 
 namespace rot.main
@@ -45,6 +46,7 @@ namespace rot.main
 				.ToValue(GameObject.Find("Connector").GetComponent<RealtimeTestConnector>())
                 .ToSingleton() 
                 .CrossContext();
+			Service.Set<RealtimeTestConnector>(GameObject.Find("Connector").GetComponent<RealtimeTestConnector>());
 
             injectionBinder.Bind<IRoutineRunner>().To<RoutineRunner>().ToSingleton().CrossContext();
             injectionBinder.Bind<GameEngine>().To<GameEngine>().ToSingleton().CrossContext();

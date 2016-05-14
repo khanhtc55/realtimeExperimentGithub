@@ -19,6 +19,7 @@ public class SendUserInputCmd : Command
         {
             //send the user input to the client which is playing as server role
             //attract: visualSys.curGameFrameIndex
+			Service.Get<RealtimeTestConnector>().SendUserInputSignal(visualSys.curGameFrameIndex);
         }
     }
 

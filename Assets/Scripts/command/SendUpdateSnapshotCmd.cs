@@ -14,7 +14,8 @@ public class SendUpdateSnapshotCmd : Command
             Service.Get<VisualSystem>().AddFrameData(updateSnapshotData.snapshots);
         else
         {
-            //send [updateSnapshotData.snapshots] to [updateSnapshotData.playerId]
+//            send [updateSnapshotData.snapshots] to [updateSnapshotData.playerId]
+			Service.Get<RealtimeTestConnector>().SendUpdateSnapshot(updateSnapshotData.playerId, updateSnapshotData.snapshots);
         }
     }
 }

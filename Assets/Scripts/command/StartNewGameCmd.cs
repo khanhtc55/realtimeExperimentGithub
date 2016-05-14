@@ -2,6 +2,7 @@
 using System.Collections;
 using strange.extensions.command.impl;
 using rot.main.datamanager;
+using nFury.Utils.Core;
 
 public class StartNewGameCmd : Command {
 
@@ -10,6 +11,6 @@ public class StartNewGameCmd : Command {
 
     public override void Execute()
     {
-        
+		Service.Get<RealtimeTestConnector>().DoConnect();
     }
 }

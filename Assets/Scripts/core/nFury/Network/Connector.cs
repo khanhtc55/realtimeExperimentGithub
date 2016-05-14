@@ -46,7 +46,7 @@ public class Connector : MonoBehaviour
     public bool debug = false;
     public string zone = "RotZone";
 
-    private SmartFox smartFox;
+    protected SmartFox smartFox;
     private bool shuttingDown = false;
 
     private void Awake()
