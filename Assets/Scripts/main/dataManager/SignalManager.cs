@@ -59,6 +59,6 @@ namespace rot.main.datamanager
 
     public class SendUserInputSignal : Signal { }
 
-    public class OnReceiveUserInputSignal : Signal { }
+    public class OnReceiveUserInputSignal : Signal<int> { }
 
 }

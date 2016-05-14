@@ -58,7 +58,7 @@ public class MainGameloopSystem : EntitySystemWithTime
             for (int i = 0; i < frameDataQueue.Count; i++)
             {
                 frameDataQueue[i].Add(latestFrame);
-                Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i]));
+                Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i][frameDataQueue[i].Count]));
             }
 
 
@@ -224,8 +224,8 @@ public class MainGameloopSystem : EntitySystemWithTime
                     frameDataQueue[k].Add(latestFrame);
             }
 
-            for (int i = 0; i < frameDataQueue.Count; i++)
-                Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i]));
+            //for (int i = 0; i < frameDataQueue.Count; i++)
+            //    Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i]));
             
         }
     }
@@ -234,9 +234,10 @@ public class MainGameloopSystem : EntitySystemWithTime
 public class UpdateSnapshotData
 {
     public int playerId;
-    public List<FrameData> snapshots;
+    //public List<FrameData> snapshots;
+    public FrameData snapshots;
 
-    public UpdateSnapshotData(int playerId, List<FrameData> snapshots)
+    public UpdateSnapshotData(int playerId, FrameData snapshots)
     {
         this.playerId = playerId;
         this.snapshots = snapshots;

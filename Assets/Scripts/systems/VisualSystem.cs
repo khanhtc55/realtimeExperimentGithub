@@ -137,20 +137,20 @@ public class VisualSystem : EntitySystemWithTime
         isGameStarted = false;
     }
 
-    public void AddFrameData(List<FrameData> frameDataQueue)
+    public void AddFrameData(FrameData frameDataQueue)
     {
         int lastFrameId = -1;
         int countBefore = gameFrames.Count;
 
-        if(gameFrames.Count>0)
-            lastFrameId = gameFrames[gameFrames.Count - 1].frameId;
-        if (frameDataQueue[frameDataQueue.Count - 1].frameId < lastFrameId) return;
+        //if(gameFrames.Count>0)
+        //    lastFrameId = gameFrames[gameFrames.Count - 1].frameId;
+        //if (frameDataQueue[frameDataQueue.Count - 1].frameId < lastFrameId) return;
 
-        for (int i = 0; i < frameDataQueue.Count; i++)
-            if (frameDataQueue[i].frameId > lastFrameId) gameFrames.Add(frameDataQueue[i]);
-            else gameFrames[countBefore - (lastFrameId - frameDataQueue[i].frameId + 1)] = frameDataQueue[i];
+        //for (int i = 0; i < frameDataQueue.Count; i++)
+        //    if (frameDataQueue[i].frameId > lastFrameId) gameFrames.Add(frameDataQueue[i]);
+        //    else gameFrames[countBefore - (lastFrameId - frameDataQueue[i].frameId + 1)] = frameDataQueue[i];
 
-        Service.Get<SignalManager>().sendClientAckSignal.Dispatch(new ClientAckData(playerId, frameDataQueue[frameDataQueue.Count - 1].frameId));
+        //Service.Get<SignalManager>().sendClientAckSignal.Dispatch(new ClientAckData(playerId, frameDataQueue[frameDataQueue.Count - 1].frameId));
     }
 
     public FrameData GetFrameData(int frameIndex)
