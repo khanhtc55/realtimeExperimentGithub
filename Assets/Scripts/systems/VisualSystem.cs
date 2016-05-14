@@ -139,8 +139,10 @@ public class VisualSystem : EntitySystemWithTime
 
     public void AddFrameData(FrameData frameDataQueue)
     {
-        int lastFrameId = -1;
-        int countBefore = gameFrames.Count;
+        
+
+        //int lastFrameId = -1;
+        //int countBefore = gameFrames.Count;
 
         //if(gameFrames.Count>0)
         //    lastFrameId = gameFrames[gameFrames.Count - 1].frameId;

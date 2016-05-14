@@ -9,7 +9,7 @@ using rot.main.datamanager;
 public class MainGameloopSystem : EntitySystemWithTime
 {
     public Dictionary<int, Entity> roleIdToEntity = new Dictionary<int, Entity>();
-    public List<List<FrameData>> frameDataQueue;
+    //public List<List<FrameData>> frameDataQueue;
     public float futureTimeAdvance = .7f;
     public int frameInputDelayToEffect;
 
@@ -54,12 +54,13 @@ public class MainGameloopSystem : EntitySystemWithTime
             countdown += customDeltaTime;
 
 
-
-            for (int i = 0; i < frameDataQueue.Count; i++)
-            {
-                frameDataQueue[i].Add(latestFrame);
-                Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i][frameDataQueue[i].Count]));
-            }
+            Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(0, latestFrame));
+            Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(1, latestFrame));
+            //for (int i = 0; i < frameDataQueue.Count; i++)
+            //{
+            //    frameDataQueue[i].Add(latestFrame);
+            //    Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i][frameDataQueue[i].Count]));
+            //}
 
 
         }
@@ -77,9 +78,9 @@ public class MainGameloopSystem : EntitySystemWithTime
         isGameStarted = false;
         curGameFrameIndex = -1;
         roleIdToEntity.Clear();
-        frameDataQueue = new List<List<FrameData>>();
-        frameDataQueue.Add(new List<FrameData>());
-        frameDataQueue.Add(new List<FrameData>());
+        //frameDataQueue = new List<List<FrameData>>();
+        //frameDataQueue.Add(new List<FrameData>());
+        //frameDataQueue.Add(new List<FrameData>());
 
         curGameloopState = GameloopState.CreateCharacters;
     }
@@ -179,9 +180,9 @@ public class MainGameloopSystem : EntitySystemWithTime
 
     public void OnReceiveClientAckData(ClientAckData clientAckData)
     {
-        int playerId = clientAckData.playerId;
-        List<FrameData> datas = frameDataQueue[playerId];
-        while (datas.Count > 0 && datas[0].frameId <= clientAckData.ackFrameId) datas.RemoveAt(0);
+        //int playerId = clientAckData.playerId;
+        //List<FrameData> datas = frameDataQueue[playerId];
+        //while (datas.Count > 0 && datas[0].frameId <= clientAckData.ackFrameId) datas.RemoveAt(0);
     }
 
     public float squaredDistance(Vector3 a, Vector3 b)
@@ -203,29 +204,29 @@ public class MainGameloopSystem : EntitySystemWithTime
         //rewrite frames
         if (effectFrame <= curGameFrameIndex)
         {
-            for (int i = 0; i < frameDataQueue.Count; i++)
-                while (frameDataQueue[i].Count > 0 &&
-                    frameDataQueue[i][frameDataQueue[i].Count - 1].frameId >= effectFrame)
-                    frameDataQueue.RemoveAt(frameDataQueue[i].Count - 1);
-
-            TransformComponent redTrans = redObject.GetComponent<TransformComponent>();
-            TransformComponent blueTrans = blueObject.GetComponent<TransformComponent>();
-            FrameData frameData = Service.Get<VisualSystem>().GetFrameData(effectFrame - 1);
-            redTrans.position = frameData.datas[0].posision;
-            redTrans.forward = frameData.datas[0].forward;
-            blueTrans.position = frameData.datas[1].posision;
-            blueTrans.forward = frameData.datas[1].forward;
-
-            for (int i = effectFrame; i <= curGameFrameIndex; i++)
-            {
-                EntityFrameData[] datas = ProcessGameloop(customDeltaTime, i);
-                FrameData latestFrame = new FrameData(curGameFrameIndex, i * customDeltaTime, datas);
-                for (int k = 0; k < frameDataQueue.Count; k++)
-                    frameDataQueue[k].Add(latestFrame);
-            }
-
             //for (int i = 0; i < frameDataQueue.Count; i++)
-            //    Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i]));
+            //    while (frameDataQueue[i].Count > 0 &&
+            //        frameDataQueue[i][frameDataQueue[i].Count - 1].frameId >= effectFrame)
+            //        frameDataQueue.RemoveAt(frameDataQueue[i].Count - 1);
+
+            //TransformComponent redTrans = redObject.GetComponent<TransformComponent>();
+            //TransformComponent blueTrans = blueObject.GetComponent<TransformComponent>();
+            //FrameData frameData = Service.Get<VisualSystem>().GetFrameData(effectFrame - 1);
+            //redTrans.position = frameData.datas[0].posision;
+            //redTrans.forward = frameData.datas[0].forward;
+            //blueTrans.position = frameData.datas[1].posision;
+            //blueTrans.forward = frameData.datas[1].forward;
+
+            //for (int i = effectFrame; i <= curGameFrameIndex; i++)
+            //{
+            //    EntityFrameData[] datas = ProcessGameloop(customDeltaTime, i);
+            //    FrameData latestFrame = new FrameData(curGameFrameIndex, i * customDeltaTime, datas);
+            //    for (int k = 0; k < frameDataQueue.Count; k++)
+            //        frameDataQueue[k].Add(latestFrame);
+            //}
+
+            ////for (int i = 0; i < frameDataQueue.Count; i++)
+            ////    Service.Get<SignalManager>().sendUpdateSnapshotSignal.Dispatch(new UpdateSnapshotData(i, frameDataQueue[i]));
             
         }
     }
