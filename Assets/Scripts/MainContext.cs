@@ -40,11 +40,11 @@ namespace rot.main
 
             #region Inject
 
-            // for Services
-            //injectionBinder.Bind<ROTConnector>()
-            //    .ToValue(GameObject.Find("Connector").GetComponent<ROTConnector>())
-            //    .ToSingleton() 
-            //    .CrossContext();
+           //  for Services
+            injectionBinder.Bind<RealtimeTestConnector>()
+				.ToValue(GameObject.Find("Connector").GetComponent<RealtimeTestConnector>())
+                .ToSingleton() 
+                .CrossContext();
 
             injectionBinder.Bind<IRoutineRunner>().To<RoutineRunner>().ToSingleton().CrossContext();
             injectionBinder.Bind<GameEngine>().To<GameEngine>().ToSingleton().CrossContext();
