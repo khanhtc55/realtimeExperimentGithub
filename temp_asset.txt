@@ -1,17 +1,1 @@
-Cach test offline:
-- Nhan play de choi
-- Nhan Jump de nhan vat cua minh nhay (trong offline mode, nguoi choi luon la redCharacter)
-- End game khi 2 character va cham
-- Nhan review de xem lai lan choi vua roi, nhan Play new game the choi game moi
-
-Server require:
-- Server goi SendFirstSetupSignal cho 2 client A va B de phan cong ai dong vai tro server
-- Gia su A dong vai tro server
-	+ A goi SendUpdateSnapshotSignal de gui snapshot packet len server
-	+ Server gui snapshot packet cho B thong qua command OnReceiveUPdateSnapshotCmd
-
-	+ B SendClientAckSignal cho A de thong bao packet moi nhat ma B nhan duoc
-	+ Server gui ve client A thong qua OnReceiveClientAckCmd
-
-	+ Khi co userInput, B se goi SendUserInputSignal
-	+ Server se gui ve cho A va goi cmd OnReceiveUserInputCmd
+change 1
